@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_LOWER] = LAYOUT( \
-  _______, _______, _______, _______, _______, _______,                   _______, _______, KC_PSLS,KC_PAST, KC_PMNS, _______,\
+  KC_GRV,  _______, _______, _______, _______, _______,                   _______, _______, KC_PSLS,KC_PAST, KC_PMNS, _______,\
   _______, _______, _______, _______,   _______, _______,                     KC_P7, KC_P8, KC_P9, KC_PPLS, KC_PPLS,  _______, \
   KC_LCTRL,KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                    KC_P4, KC_P5, KC_P6, KC_PPLS, KC_PPLS, _______, \
   KC_LSFT,  _______, _______, _______, _______, _______, _______, _______, KC_P1, KC_P2, KC_P3, KC_PDOT, _______, _______, \
@@ -82,16 +82,13 @@ const char *read_keylogs(void);
 // void set_timelog(void);
 // const char *read_timelog(void);
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   if (is_keyboard_master()) {
     // If you want to change the display of OLED, you need to change here
     //render_status();
-
     oled_write_ln(read_layer_state(), false);
     oled_write_ln(read_keylog(), false);
     //oled_write_ln(read_keylogs(), false);
-
-
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
     //oled_write_ln(read_host_led_state(), false);
     //oled_write_ln(read_timelog(), false);
@@ -101,6 +98,7 @@ void oled_task_user(void) {
     oled_write(read_logo(), false);
     //oled_write_ln(read_layer_state(), false);
   }
+  return false;
 }
 #endif // OLED_ENABLE
 
